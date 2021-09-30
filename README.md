@@ -1,3 +1,5 @@
+#ARTICLE FROM NATURE.COM... proceed with caution: https://www.nature.com/articles/s41586-021-03854-z.pdf
+
 ###NOTES FROM REDDIT FANATICS:
 """
 If you want to generate unbiased estimates of the probabilities of various outcomes, GANs are decidedly the wrong choice of probabilistic model. Yes, the samples will look realistic, but since GANs are susceptible to mode collapse, it's likely that the predictions are going to be biased towards a subset of modes which the generator has learned to model. And when you marginalize over the latent distribution, you're going to end up with blurry estimates no matter what, so the fact that the individual samples are sharp is basically useless (aside from deceiving people who don't understand the nuances of various generative models). In reference to the adversarial losses, they write:
