@@ -1,3 +1,35 @@
+###NOTES FROM REDDIT FANATICS:
+"""
+If you want to generate unbiased estimates of the probabilities of various outcomes, GANs are decidedly the wrong choice of probabilistic model. Yes, the samples will look realistic, but since GANs are susceptible to mode collapse, it's likely that the predictions are going to be biased towards a subset of modes which the generator has learned to model. And when you marginalize over the latent distribution, you're going to end up with blurry estimates no matter what, so the fact that the individual samples are sharp is basically useless (aside from deceiving people who don't understand the nuances of various generative models). In reference to the adversarial losses, they write:
+
+>When used alone, these losses lead to accuracy on par with Eulerian persistence
+
+I assume they don't define Eulerian persistence because, if they did, it would make clear that the GANs aren't doing shit (see https://rainymotion.readthedocs.io/en/latest/models.html#the-eulerian-persistence). Only once they add an l1 prediction loss do they get models with any predictive value. Yet despite the l1 loss doing the heavy lifting and the GAN loss doing nothing for predictive performance, they have the audacity to refer to the l1 loss as the 'regularization' term.
+
+Their evaluation relies on meteorologists' assessments of the GAN forecasts vs the forecasts of other models. They write:
+
+>Meteorologists were not swayed by the visual realism of the predictions
+
+Then a couple sentences later they write that meteorologists described the GAN samples as having "much higher detail compared to what [expert meteorologists] are used to at the moment". Sounds like they were pretty clearly swayed (deceived) by the high frequency components which are visible in GAN samples but not in 'blurry' marginal estimates.
+
+Seems like just a bunch of garbage dressed up with GANs to me. I have no qualifications to critique these kinds of nature-published-thousand-author papers that deepmind pumps out, so take my comments with a grain of salt. Happy to be proven wrong.
+
+###RESPONSE TO ABOVE^
+#You raise a lot of valid points, but I don't think it follows that the approach is garbage.
+
+The GAN is basically just hallucinating plausible details on top of the L1 prediction, but the fact is, this still lead to a higher predictive skill and value! Is the method really garbage if it has higher predictive performance on multiple metrics than other leading deep networks and statistical baselines?
+
+Furthermore, there is a ton of research into avoiding GAN mode-dropping that can be integrated into this baseline approach. That seems like a pretty promising way to gain even more performance!
+
+I also think marginalizing over the latent distribution is very promising (would love to have seen an analysis of this in the paper!). Yes, of course that will be blurrier than single estimates, but the resolution of DGMR is 1x1 kilometer vs the effective resolution of UNet being 32km and Axial Attention being 16 km (at T+90 min). There's quite a lot of room to average predictions and still outperform the other methods.
+
+On the predictive value side: the meteorologists weren't solely assessing DGMR positively because it had higher resolution, they also noted that the baselines were implausible and that DGMR had other benefits next to the high frequency details:
+
+In the phase 2 interviews, PySTEPS was described as “being too developmental which would be misleading”, that is, as having many “positional errors” and “much higher intensity compared with reality”. The axial attention model was described as “too bland”, that is, as being “blocky” and “unrealistic”, but had “good spatial extent”. Meteorologists described DGMR as having the “best envelope”, “representing the risk best”, as having “much higher detail compared to what [expert meteorologists] are used to at the moment”, and as capturing “both the size of convection cells and intensity the best”.
+
+These are experts in their field that definitely know what to look for when evaluating a forecasting model. I think characterizing them all as fools who are deceived by the higher number of pixels is not fair.
+"""
+
 # DeepMind Research
 
 This repository contains implementations and illustrative code to accompany
@@ -21,6 +53,7 @@ related areas on our [careers page](https://deepmind.com/careers/).
 
 For a full list of our publications, please see
 https://deepmind.com/research/publications/
+
 
 ## Projects
 
